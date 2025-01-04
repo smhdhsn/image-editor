@@ -1,6 +1,6 @@
 from typing import List
-from .filter_builder import FilterBuilder
+from .editor import Editor
 
 __all__: List[str] = [
-    "FilterBuilder",
+    "Editor",
 ]

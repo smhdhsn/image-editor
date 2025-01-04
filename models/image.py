@@ -1,3 +1,4 @@
+from typing import Tuple
 import cv2
 from cv2.typing import MatLike
 
@@ -5,15 +6,12 @@ from cv2.typing import MatLike
 class Image:
     def __init__(self, file_path: str) -> None:
         self.image_path: str = file_path
-        self.image: MatLike = None
+        self.image: MatLike = cv2.imread(self.image_path)
 
     def reload(self, image: MatLike) -> None:
         self.image = image
 
     def load(self) -> MatLike:
-        if self.image is None:
-            self.image: MatLike = cv2.imread(self.image_path)
-
         return self.image
 
     def show(self, *, show_details: bool = True) -> None:
@@ -21,6 +19,7 @@ class Image:
         cv2.imshow(self.get_name(), image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+        return self
 
     def get_name(self) -> str:
         return self.image_path.split("/")[-1].split(".")[0]
@@ -28,14 +27,15 @@ class Image:
     def get_type(self) -> str:
         return self.image_path.split(".")[-1]
 
-    def get_details(self) -> None:
-        width, height = self.image.shape[0], self.image.shape[1]
-        return f"Width:{width}, Height:{height}"
+    def get_details(self) -> Tuple[int, int]:
+        return (self.image.shape[0], self.image.shape[1])
 
     def _write_on_image(self) -> MatLike:
+        width, height = self.get_details()
+
         return cv2.putText(
             img=self.image.copy(),
-            text=self.get_details(),
+            text=f"Width:{width}, Height: {height}",
             org=(
                 int(self.image.shape[0] / 100),
                 int(self.image.shape[1] - (self.image.shape[1] / 100)),
