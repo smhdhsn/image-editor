@@ -1,5 +1,5 @@
+import cv2
 from cv2.typing import MatLike
-from cv2 import medianBlur as median_blur
 from models import Filter
 
 
@@ -8,4 +8,4 @@ class MedianBlur(Filter):
         self.ksize = ksize
 
     def apply(self, image: MatLike) -> MatLike:
-        return median_blur(image, self.ksize)
+        return cv2.medianBlur(image, self.ksize)

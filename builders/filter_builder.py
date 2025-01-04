@@ -13,8 +13,8 @@ class FilterBuilder:
 
     def apply(self) -> Image:
         cv2_image = self.image.load().copy()
-        for filter in self.filters:
-            cv2_image = filter.apply(cv2_image)
+        for fltr in self.filters:
+            cv2_image = fltr.apply(cv2_image)
 
         self.image.reload(cv2_image)
         return self.image

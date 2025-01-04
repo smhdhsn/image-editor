@@ -4,7 +4,6 @@ from .gray_scale import GrayScale
 from .sharp import Sharp
 
 __all__: list[str] = [
-    "Filter",
     "GaussianBlur",
     "MedianBlur",
     "GrayScale",

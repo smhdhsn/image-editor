@@ -1,5 +1,5 @@
-from cv2.typing import MatLike
 import cv2
+from cv2.typing import MatLike
 
 
 class Image:
