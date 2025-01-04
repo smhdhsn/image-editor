@@ -1,22 +1,22 @@
 from typing import Tuple
 import cv2
 from cv2.typing import MatLike
-from models import Operation
+from models import Layer
 
 
-class Line(Operation):
+class Circle(Layer):
     def __init__(
         self,
-        pt1: Tuple[int, int],
-        pt2: Tuple[int, int],
+        center: Tuple[int, int],
+        radius: int,
         *,
         color: Tuple[int, int, int] = (0, 0, 0),
         thickness: int = 5,
     ) -> None:
+        self.center = center
+        self.radius = radius
         self.thickness = thickness
         self.color = color
-        self.pt1 = pt1
-        self.pt2 = pt2
 
     def apply(self, image: MatLike) -> MatLike:
-        return cv2.line(image, self.pt1, self.pt2, self.color, self.thickness)
+        return cv2.circle(image, self.center, self.radius, self.color, self.thickness)

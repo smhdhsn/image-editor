@@ -1,9 +1,9 @@
 import cv2
 from cv2.typing import MatLike
-from models import Filter
+from models import Layer
 
 
-class MedianBlur(Filter):
+class MedianBlur(Layer):
     def __init__(self, *, ksize: int = 25) -> None:
         self.ksize = ksize
 

@@ -1,9 +1,6 @@
-from .rectangle import Rectangle
-from .circle import Circle
-from .line import Line
+from typing import List
+from .rotate import Rotate
 
-__all__: list[str] = [
-    "Rectangle",
-    "Circle",
-    "Line",
+__all__: List[str] = [
+    "Rotate",
 ]

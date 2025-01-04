@@ -1,10 +1,10 @@
 from typing import Tuple
 import cv2
 from cv2.typing import MatLike
-from models import Filter
+from models import Layer
 
 
-class GaussianBlur(Filter):
+class GaussianBlur(Layer):
     def __init__(
         self, *, ksize: Tuple[int, int] = (25, 25), sigma_x: float = 10
     ) -> None:

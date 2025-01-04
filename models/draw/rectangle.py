@@ -1,10 +1,10 @@
 from typing import Tuple
 import cv2
 from cv2.typing import MatLike
-from models import Operation
+from models import Layer
 
 
-class Rectangle(Operation):
+class Rectangle(Layer):
     def __init__(
         self,
         pt1: Tuple[int, int],

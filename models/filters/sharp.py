@@ -1,10 +1,10 @@
 import numpy as np
 import cv2
 from cv2.typing import MatLike
-from models import Filter
+from models import Layer
 
 
-class Sharp(Filter):
+class Sharp(Layer):
     def __init__(self, *, ddepth: int = -1, kernel: np.typing.NDArray = None) -> None:
         self.ddepth = ddepth
         self.kernel = (

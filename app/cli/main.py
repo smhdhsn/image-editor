@@ -1,7 +1,8 @@
 from builders import Editor
 from models import Image
 from models.filters import GaussianBlur, MedianBlur, GrayScale
-from models.operations import Rectangle, Circle, Line
+from models.draw import Rectangle, Circle, Line
+from models.operations import Rotate
 
 
 def main():
@@ -9,11 +10,10 @@ def main():
     width, height = image.get_details()
 
     e = Editor(image)
-    e.add_filters(
+    e.add_layer(
         GaussianBlur(),
         MedianBlur(),
         GrayScale(),
-    ).add_operations(
         Rectangle(
             (int(width * 0.2), int(height * 0.2)),
             (int(width - width * 0.2), int(height - height * 0.2)),
@@ -26,6 +26,7 @@ def main():
             (int(width * 0.1), int(height * 0.1)),
             (int(width - width * 0.1), int(height - height * 0.1)),
         ),
+        Rotate(90),
     )
 
     image = e.apply()

@@ -1,9 +1,7 @@
-from .operation import Operation
-from .filter import Filter
+from .layer import Layer
 from .image import Image
 
 __all__: list[str] = [
-    "Operation",
-    "Filter",
+    "Layer",
     "Image",
 ]
