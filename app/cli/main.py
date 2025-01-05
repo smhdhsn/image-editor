@@ -1,8 +1,8 @@
 from builders import Editor
 from models import Image
+from models.operations import Brightness, Resize, Rotate, Flip, Crop
 from models.filters import GaussianBlur, MedianBlur, GrayScale
 from models.draw import Rectangle, Circle, Line
-from models.operations import Brightness, Resize, Rotate, Flip, Crop
 
 
 def main():
