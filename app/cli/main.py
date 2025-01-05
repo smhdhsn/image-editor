@@ -2,7 +2,7 @@ from builders import Editor
 from models import Image
 from models.filters import GaussianBlur, MedianBlur, GrayScale
 from models.draw import Rectangle, Circle, Line
-from models.operations import Resize, Rotate, Flip, Crop
+from models.operations import Brightness, Resize, Rotate, Flip, Crop
 
 
 def main():
@@ -30,6 +30,7 @@ def main():
             (int(width * 0.1), int(height * 0.1)),
             (int(width - width * 0.1), int(height - height * 0.1)),
         ),
+        Brightness(-100),
         Resize(2),
         Rotate(90),
         Flip(1),
