@@ -1,5 +1,4 @@
 from typing import Tuple
-import cv2
 from cv2.typing import MatLike
 from models import Layer
 
