@@ -1,8 +1,9 @@
+from typing import List
 from .rectangle import Rectangle
 from .circle import Circle
 from .line import Line
 
-__all__: list[str] = [
+__all__: List[str] = [
     "Rectangle",
     "Circle",
     "Line",

@@ -1,7 +1,7 @@
 from builders import Editor
 from models import Image
+from models.filters import AveragingBlur, GaussianBlur, MedianBlur, GrayScale
 from models.operations import Brightness, Resize, Rotate, Flip, Crop
-from models.filters import GaussianBlur, MedianBlur, GrayScale
 from models.draw import Rectangle, Circle, Line
 
 
@@ -11,6 +11,7 @@ def main():
 
     e = Editor(image)
     e.add_layer(
+        AveragingBlur(),
         GaussianBlur(),
         MedianBlur(),
         GrayScale(),
