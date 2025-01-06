@@ -1,8 +1,25 @@
 from builders import Editor
 from models import Image
-from models.filters import AveragingBlur, GaussianBlur, MedianBlur, GrayScale
-from models.operations import Brightness, Resize, Rotate, Flip, Crop
-from models.draw import Rectangle, Circle, Line
+from models.filters import (
+    AveragingBlur,
+    GaussianBlur,
+    MedianBlur,
+    GrayScale,
+    Denoise,
+    Smooth,
+)
+from models.operations import (
+    Brightness,
+    Resize,
+    Rotate,
+    Flip,
+    Crop,
+)
+from models.draw import (
+    Rectangle,
+    Circle,
+    Line,
+)
 
 
 def main():
@@ -15,6 +32,8 @@ def main():
         GaussianBlur(),
         MedianBlur(),
         GrayScale(),
+        Denoise(6, 6, 7, 21),
+        Smooth(9),
         Crop(
             (int(width * 0.2), int(height * 0.2)),
             (int(width - width * 0.2), int(height - height * 0.2)),
