@@ -5,8 +5,10 @@ from models.filters import (
     GaussianBlur,
     MedianBlur,
     GrayScale,
+    Threshold,
     Denoise,
     Smooth,
+    Sharp,
 )
 from models.operations import (
     Brightness,
@@ -32,8 +34,10 @@ def main():
         GaussianBlur(),
         MedianBlur(),
         GrayScale(),
+        Threshold(255, 127),
         Denoise(6, 6, 7, 21),
         Smooth(9),
+        Sharp(),
         Crop(
             (int(width * 0.2), int(height * 0.2)),
             (int(width - width * 0.2), int(height - height * 0.2)),
