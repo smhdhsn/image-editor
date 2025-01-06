@@ -1,4 +1,5 @@
 from typing import List
+from .adaptive_threshold import AdaptiveThreshold
 from .averaging_blur import AveragingBlur
 from .gaussian_blur import GaussianBlur
 from .median_blur import MedianBlur
@@ -9,6 +10,7 @@ from .smooth import Smooth
 from .sharp import Sharp
 
 __all__: List[str] = [
+    "AdaptiveThreshold",
     "AveragingBlur",
     "GaussianBlur",
     "MedianBlur",
