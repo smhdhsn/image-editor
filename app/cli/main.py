@@ -2,18 +2,27 @@ from builders import Editor
 from models import Image
 from models.filters import (
     AdaptiveThreshold,
-    # AveragingBlur,
+    AveragingBlur,
     GaussianBlur,
-    # MedianBlur,
+    MedianBlur,
     GrayScale,
-    # Threshold,
-    # Denoise,
-    # Smooth,
-    # Sharp,
+    Threshold,
+    Denoise,
+    Smooth,
+    Sharp,
 )
-
-# from models.operations import Brightness, Resize, Rotate, Flip, Crop
-# from models.draw import Rectangle, Circle, Line
+from models.operations import (
+    Brightness,
+    Resize,
+    Rotate,
+    Flip,
+    Crop,
+)
+from models.draw import (
+    Rectangle,
+    Circle,
+    Line,
+)
 
 
 def main():
