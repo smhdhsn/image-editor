@@ -3,6 +3,7 @@ from .adaptive_threshold import AdaptiveThreshold
 from .averaging_blur import AveragingBlur
 from .gaussian_blur import GaussianBlur
 from .median_blur import MedianBlur
+from .morphology import Morphology
 from .gray_scale import GrayScale
 from .threshold import Threshold
 from .denoise import Denoise
@@ -14,6 +15,7 @@ __all__: List[str] = [
     "AveragingBlur",
     "GaussianBlur",
     "MedianBlur",
+    "Morphology",
     "GrayScale",
     "Threshold",
     "Denoise",

@@ -3,6 +3,7 @@ from models import Image
 from models.filters import (
     AdaptiveThreshold,
     GaussianBlur,
+    Morphology,
     GrayScale,
 )
 
@@ -20,6 +21,7 @@ def main():
         GrayScale(),
         GaussianBlur((3, 3)),
         AdaptiveThreshold(255, 3, 5),
+        Morphology((2, 2)),
     ).apply()
 
     image.show()
