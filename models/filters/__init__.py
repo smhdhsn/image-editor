@@ -8,6 +8,7 @@ from .gray_scale import GrayScale
 from .threshold import Threshold
 from .denoise import Denoise
 from .smooth import Smooth
+from .canny import Canny
 from .sharp import Sharp
 
 __all__: List[str] = [
@@ -20,5 +21,6 @@ __all__: List[str] = [
     "Threshold",
     "Denoise",
     "Smooth",
+    "Canny",
     "Sharp",
 ]
