@@ -6,8 +6,8 @@ from models import Layer
 class Threshold(Layer):
     def __init__(
         self,
-        max_val: float,
         threshold: float,
+        max_val: float,
         *,
         threshold_type: int = cv2.THRESH_TRUNC,
     ) -> None:
