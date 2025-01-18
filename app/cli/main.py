@@ -1,12 +1,12 @@
 from builders import Editor
 from models import Image
 from models.filters import (
-    MedianBlur,
+    AveragingBlur,
     GrayScale,
     Canny,
 )
 
-# from models.filters import AdaptiveThreshold, AveragingBlur, GaussianBlur, Morphology, Threshold, Denoise, Smooth, Sharp
+# from models.filters import AdaptiveThreshold, MedianBlur, GaussianBlur, Morphology, Threshold, Denoise, Smooth, Sharp
 # from models.operations import Brightness, Resize, Rotate, Flip, Crop
 # from models.draw import Rectangle, Circle, Line
 
@@ -18,7 +18,7 @@ def main():
 
     image = e.add_layer(
         GrayScale(),
-        MedianBlur(7),
+        AveragingBlur((5, 5)),
         Canny(200, 240),
     ).apply()
 
