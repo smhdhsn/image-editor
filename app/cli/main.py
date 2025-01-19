@@ -4,6 +4,7 @@ from models import Image
 from models.filters import (
     AdaptiveThreshold,
     GaussianBlur,
+    Morphology,
     GrayScale,
     Canny,
 )
@@ -36,13 +37,14 @@ from models.filters import (
 
 
 def main():
-    image = Image("./images/coins_1.jpg")
+    image = Image("./images/coins_1.png")
 
     e = Editor(image)
     edited_image = e.add_layer(
         GrayScale(),
         GaussianBlur((9, 9)),
         AdaptiveThreshold(255, 21, 13),
+        Morphology((5, 5), iterations=4),
         Canny(150, 200),
     ).apply()
 
@@ -52,10 +54,15 @@ def main():
         cv2.CHAIN_APPROX_NONE,
     )
 
-    image.apply(
-        lambda img: cv2.drawContours(img, contours, -1, (0, 0, 255), 5),
-        load_from_disc=False,
-    )
+    image.reload()
+    for c in contours:
+        x, y, w, h = cv2.boundingRect(c)
+        cv2.rectangle(image.load(), (x, y), (x + h, y + w), (0, 0, 255), 3)
+
+    # image.draw(
+    #     lambda img, density: cv2.drawContours(img, contours, -1, (0, 0, 255), density),
+    #     draw_on_original=False,
+    # )
 
     image.show()
     image.store()

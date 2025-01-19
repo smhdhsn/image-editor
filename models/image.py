@@ -8,16 +8,20 @@ class Image:
         self.image_path: str = file_path
         self.image: np.ndarray = self._load_from_disc()
 
-    def apply(
+    def draw(
         self,
         f: Callable[[np.ndarray], None],
         *,
-        load_from_disc: bool = True,
+        draw_on_original: bool = True,
+        density: int = 3,
     ) -> None:
         self.image = f(
-            self._load_from_disc()
-            if load_from_disc
-            else cv2.cvtColor(self.image, cv2.COLOR_GRAY2BGR)
+            (
+                self._load_from_disc()
+                if draw_on_original
+                else cv2.cvtColor(self.image, cv2.COLOR_GRAY2BGR)
+            ),
+            density,
         )
 
     def reload(self, image: np.ndarray | None = None) -> None:
