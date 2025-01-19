@@ -14,10 +14,14 @@ class Image:
         *,
         load_from_disc: bool = True,
     ) -> None:
-        self.image = f(self._load_from_disc() if load_from_disc else self.image)
+        self.image = f(
+            self._load_from_disc()
+            if load_from_disc
+            else cv2.cvtColor(self.image, cv2.COLOR_GRAY2BGR)
+        )
 
-    def reload(self, image: np.ndarray) -> None:
-        self.image = image if image is not None else self._reload_from_disc()
+    def reload(self, image: np.ndarray | None = None) -> None:
+        self.image = image if image is not None else self._load_from_disc()
 
     def _load_from_disc(self) -> np.ndarray:
         return cv2.imread(self.image_path)

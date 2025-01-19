@@ -2,6 +2,8 @@ import cv2
 from builders import Editor
 from models import Image
 from models.filters import (
+    AdaptiveThreshold,
+    GaussianBlur,
     GrayScale,
     Canny,
 )
@@ -34,12 +36,14 @@ from models.filters import (
 
 
 def main():
-    image = Image("./images/shapes_1.jpg")
+    image = Image("./images/coins_1.jpg")
 
     e = Editor(image)
     edited_image = e.add_layer(
         GrayScale(),
-        Canny(50, 200),
+        GaussianBlur((9, 9)),
+        AdaptiveThreshold(255, 21, 13),
+        Canny(150, 200),
     ).apply()
 
     contours, _ = cv2.findContours(
@@ -49,7 +53,8 @@ def main():
     )
 
     image.apply(
-        lambda img: cv2.drawContours(img, contours, -1, (255, 0, 0), 2),
+        lambda img: cv2.drawContours(img, contours, -1, (0, 0, 255), 5),
+        load_from_disc=False,
     )
 
     image.show()

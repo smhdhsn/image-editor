@@ -13,7 +13,7 @@ class Editor:
         return self
 
     def apply(self) -> Image:
-        cv2_image = self.image.load().copy()
+        cv2_image = self.image.load()
 
         for layer in self.layers:
             cv2_image = layer.apply(cv2_image)
