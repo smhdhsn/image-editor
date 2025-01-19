@@ -29,7 +29,7 @@ class Morphology(Layer):
         self,
         kernel: Tuple[int, int],
         *,
-        mode: int = MORPHOLOGY_EROSION,
+        mode: int = MORPHOLOGY_OPENING,
         iterations: int = 1,
     ) -> None:
         self.kernel = np.ones(kernel, np.uint8)

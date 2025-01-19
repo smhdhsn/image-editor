@@ -9,7 +9,7 @@ class GaussianBlur(Layer):
         self,
         kernel_size: Tuple[int, int],
         *,
-        sigma_x: float = 10,
+        sigma_x: float = 0,
     ) -> None:
         self.kernel_size = kernel_size
         self.sigma_x = sigma_x
