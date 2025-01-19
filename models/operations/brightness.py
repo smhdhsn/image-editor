@@ -1,6 +1,5 @@
-import numpy as np
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -8,7 +7,7 @@ class Brightness(Layer):
     def __init__(self, brightness: int) -> None:
         self.brightness = brightness
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         table = np.ones(image.shape, dtype="uint8") * abs(self.brightness)
 
         if self.brightness < 0:

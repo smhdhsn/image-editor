@@ -1,6 +1,6 @@
 from typing import Tuple
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -16,7 +16,7 @@ class Rotate(Layer):
         self.angle = angle
         self.scale = scale
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         pivot_point = (
             (image.shape[0] / 2, image.shape[1] / 2)
             if self.pivot_point is None

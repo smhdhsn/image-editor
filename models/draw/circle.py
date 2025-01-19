@@ -1,6 +1,6 @@
 from typing import Tuple
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -18,5 +18,5 @@ class Circle(Layer):
         self.thickness = thickness
         self.color = color
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         return cv2.circle(image, self.center, self.radius, self.color, self.thickness)

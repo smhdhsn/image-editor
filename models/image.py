@@ -1,17 +1,28 @@
-from typing import Tuple
+from typing import Callable, Tuple
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 
 
 class Image:
     def __init__(self, file_path: str) -> None:
         self.image_path: str = file_path
-        self.image: MatLike = cv2.imread(self.image_path)
+        self.image: np.ndarray = self._load_from_disc()
 
-    def reload(self, image: MatLike) -> None:
-        self.image = image
+    def apply(
+        self,
+        f: Callable[[np.ndarray], None],
+        *,
+        load_from_disc: bool = True,
+    ) -> None:
+        self.image = f(self._load_from_disc() if load_from_disc else self.image)
 
-    def load(self) -> MatLike:
+    def reload(self, image: np.ndarray) -> None:
+        self.image = image if image is not None else self._reload_from_disc()
+
+    def _load_from_disc(self) -> np.ndarray:
+        return cv2.imread(self.image_path)
+
+    def load(self) -> np.ndarray:
         return self.image
 
     def show(self, *, show_details: bool = True) -> None:
@@ -30,7 +41,7 @@ class Image:
     def get_details(self) -> Tuple[int, int]:
         return (self.image.shape[0], self.image.shape[1])
 
-    def _write_on_image(self) -> MatLike:
+    def _write_on_image(self) -> np.ndarray:
         width, height = self.get_details()
 
         return cv2.putText(

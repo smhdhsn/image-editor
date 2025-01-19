@@ -1,5 +1,5 @@
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 FLIP_VERTICAL = 0
@@ -17,5 +17,5 @@ class Flip(Layer):
     def __init__(self, direction: int = FLIP_HORIZONTAL) -> None:
         self.direction = direction
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         return cv2.flip(image, self.direction)

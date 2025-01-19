@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
-from cv2.typing import MatLike
+import numpy as np
 
 
 class Layer(ABC):
     @abstractmethod
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         pass

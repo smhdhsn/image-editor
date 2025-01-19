@@ -1,6 +1,6 @@
 from typing import Tuple
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -18,7 +18,7 @@ class Rectangle(Layer):
         self.pt1 = pt1
         self.pt2 = pt2
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         line1 = (self.pt1, (self.pt2[0], self.pt1[1]))
         line2 = ((self.pt2[0], self.pt1[1]), self.pt2)
         line3 = (self.pt2, (self.pt1[0], self.pt2[1]))

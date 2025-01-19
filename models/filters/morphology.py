@@ -1,7 +1,6 @@
 from typing import Tuple
-import numpy as np
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 MORPHOLOGY_DIALATION = 0
@@ -37,7 +36,7 @@ class Morphology(Layer):
         self.iterations = iterations
         self.mode = mode
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         match self.mode:
             case 0:
                 return self._dialate(image)
@@ -54,21 +53,21 @@ class Morphology(Layer):
             case _:
                 raise ValueError("Wrong mode.")
 
-    def _dialate(self, image: MatLike) -> MatLike:
+    def _dialate(self, image: np.ndarray) -> np.ndarray:
         return cv2.dilate(
             image,
             self.kernel,
             iterations=self.iterations,
         )
 
-    def _erode(self, image: MatLike) -> MatLike:
+    def _erode(self, image: np.ndarray) -> np.ndarray:
         return cv2.erode(
             image,
             self.kernel,
             iterations=self.iterations,
         )
 
-    def _open(self, image: MatLike) -> MatLike:
+    def _open(self, image: np.ndarray) -> np.ndarray:
         return cv2.morphologyEx(
             image,
             cv2.MORPH_OPEN,
@@ -76,7 +75,7 @@ class Morphology(Layer):
             iterations=self.iterations,
         )
 
-    def _close(self, image: MatLike) -> MatLike:
+    def _close(self, image: np.ndarray) -> np.ndarray:
         return cv2.morphologyEx(
             image,
             cv2.MORPH_CLOSE,

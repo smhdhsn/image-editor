@@ -1,5 +1,5 @@
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -15,7 +15,7 @@ class Threshold(Layer):
         self.max_val = max_val
         self.threshold_type = threshold_type
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         _, image = cv2.threshold(
             image,
             self.threshold,

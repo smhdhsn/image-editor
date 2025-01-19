@@ -1,6 +1,5 @@
-import numpy as np
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -19,5 +18,5 @@ class Sharp(Layer):
             )
         )
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         return cv2.filter2D(image, self.ddepth, self.kernel)

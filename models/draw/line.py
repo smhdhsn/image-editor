@@ -1,6 +1,6 @@
 from typing import Tuple
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -18,5 +18,5 @@ class Line(Layer):
         self.pt1 = pt1
         self.pt2 = pt2
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         return cv2.line(image, self.pt1, self.pt2, self.color, self.thickness)

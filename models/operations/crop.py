@@ -1,5 +1,5 @@
 from typing import Tuple
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -8,5 +8,5 @@ class Crop(Layer):
         self.pt1 = pt1
         self.pt2 = pt2
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         return image[self.pt1[0] : self.pt2[0], self.pt1[1] : self.pt2[1]]

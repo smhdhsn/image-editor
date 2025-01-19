@@ -1,5 +1,5 @@
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -9,7 +9,7 @@ class Canny(Layer):
         self.max_value = max_value
         self.kernel_size = kernel_size
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         return cv2.Canny(
             image,
             self.min_value,

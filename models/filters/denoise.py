@@ -1,5 +1,5 @@
 import cv2
-from cv2.typing import MatLike
+import numpy as np
 from models import Layer
 
 
@@ -16,7 +16,7 @@ class Denoise(Layer):
         self.h_color = h_color
         self.h = h
 
-    def apply(self, image: MatLike) -> MatLike:
+    def apply(self, image: np.ndarray) -> np.ndarray:
         if len(image.shape) == 3:
             return cv2.fastNlMeansDenoisingColored(
                 image,
