@@ -3,7 +3,6 @@ import numpy as np
 from builders import Editor
 from models import Image
 from models.filters import (
-    MedianBlur,
     GrayScale,
 )
 
@@ -35,22 +34,38 @@ from models.filters import (
 
 
 def main():
-    image = Image("./images/coins_and_seeds_1.jpg")
+    e = get_editor()
+    main_image = e.apply(Image("./images/waldo_on_beach_1.jpg"))
+    tmpl_image = e.apply(Image("./images/waldo_1.jpg"))
 
-    e = Editor(image)
-    e.add_layer(
+    result = cv2.matchTemplate(
+        main_image.load(),
+        tmpl_image.load(),
+        cv2.TM_CCOEFF,
+    )
+
+    main_image.reload()
+
+    _, _, _, max_loc = cv2.minMaxLoc(result)
+
+    top_left = max_loc
+    cv2.rectangle(
+        main_image.load(),
+        top_left,
+        (top_left[0] + 50, top_left[1] + 50),
+        (0, 0, 0),
+        5,
+    )
+
+    main_image.show()
+
+
+def get_editor() -> Editor:
+    e = Editor()
+
+    return e.add_layer(
         GrayScale(),
-        MedianBlur(15),
-    ).apply()
-
-    circles = cv2.HoughCircles(image.load(), cv2.HOUGH_GRADIENT, 1.2, 25)
-
-    image.reload()
-    for i in np.uint16(np.around(circles[0, :])):
-        cv2.circle(image.load(), (i[0], i[1]), i[2], (0, 255, 255), 10)
-
-    image.show()
-    image.store()
+    )
 
 
 if __name__ == "__main__":

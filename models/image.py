@@ -1,4 +1,6 @@
+from __future__ import annotations
 from typing import Callable, Tuple
+from copy import deepcopy
 import cv2
 import numpy as np
 
@@ -23,6 +25,9 @@ class Image:
             ),
             density,
         )
+
+    def copy(self) -> Image:
+        return deepcopy(self)
 
     def reload(self, image: np.ndarray | None = None) -> None:
         self.image = image if image is not None else self._load_from_disc()
