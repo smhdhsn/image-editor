@@ -3,7 +3,6 @@ import numpy as np
 from builders import Editor
 from models import Image
 from models.filters import (
-    Morphology,
     GrayScale,
     Smooth,
     Canny,
@@ -37,54 +36,39 @@ from models.filters import (
 
 
 def main():
-    image = Image("./images/coins_and_seeds_1.jpg")
-
-    coin_contours = get_single_coin_contours()
+    image = Image("./images/road_1.webp")
 
     e = Editor(image)
     e.add_layer(
         GrayScale(),
-        Smooth(3),
-        Morphology((3, 3)),
+        Smooth(6),
         Canny(100, 200),
     ).apply()
 
-    contours, _ = cv2.findContours(
+    lines = cv2.HoughLines(
         image.load(),
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_NONE,
+        1,
+        np.pi / 180,
+        255,
     )
 
-    image.reload()
-    for c in contours:
-        similarity = cv2.matchShapes(coin_contours, c, 3, 0.0)
+    for line in lines:
+        rho, theta = line[0]
+        a = np.cos(theta)
+        b = np.sin(theta)
 
-        if similarity < 0.15:
-            x, y, w, h = cv2.boundingRect(c)
-            cv2.rectangle(image.load(), (x, y), (x + h, y + w), (0, 0, 255), 5)
+        x0 = a * rho
+        y0 = b * rho
+
+        y1 = int(y0 + 1000 * (a))
+        x1 = int(x0 + 1000 * (-b))
+        x2 = int(x0 - 1000 * (-b))
+        y2 = int(y0 - 1000 * (a))
+
+        cv2.line(image.load(), (x1, y1), (x2, y2), (255, 0, 0), 2)
 
     image.show()
     image.store()
-
-
-def get_single_coin_contours() -> np.ndarray:
-    image = Image("./images/coin_1.jpg")
-
-    e = Editor(image)
-    e.add_layer(
-        GrayScale(),
-        Smooth(3),
-        Morphology((3, 3)),
-        Canny(50, 200),
-    ).apply()
-
-    contours, _ = cv2.findContours(
-        image.load(),
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_NONE,
-    )
-
-    return contours[0]
 
 
 if __name__ == "__main__":
