@@ -3,9 +3,8 @@ import numpy as np
 from builders import Editor
 from models import Image
 from models.filters import (
+    MedianBlur,
     GrayScale,
-    Smooth,
-    Canny,
 )
 
 # from models.filters import (
@@ -36,36 +35,19 @@ from models.filters import (
 
 
 def main():
-    image = Image("./images/road_1.webp")
+    image = Image("./images/coins_and_seeds_1.jpg")
 
     e = Editor(image)
     e.add_layer(
         GrayScale(),
-        Smooth(6),
-        Canny(100, 200),
+        MedianBlur(15),
     ).apply()
 
-    lines = cv2.HoughLines(
-        image.load(),
-        1,
-        np.pi / 180,
-        255,
-    )
+    circles = cv2.HoughCircles(image.load(), cv2.HOUGH_GRADIENT, 1.2, 25)
 
-    for line in lines:
-        rho, theta = line[0]
-        a = np.cos(theta)
-        b = np.sin(theta)
-
-        x0 = a * rho
-        y0 = b * rho
-
-        y1 = int(y0 + 1000 * (a))
-        x1 = int(x0 + 1000 * (-b))
-        x2 = int(x0 - 1000 * (-b))
-        y2 = int(y0 - 1000 * (a))
-
-        cv2.line(image.load(), (x1, y1), (x2, y2), (255, 0, 0), 2)
+    image.reload()
+    for i in np.uint16(np.around(circles[0, :])):
+        cv2.circle(image.load(), (i[0], i[1]), i[2], (0, 255, 255), 10)
 
     image.show()
     image.store()
